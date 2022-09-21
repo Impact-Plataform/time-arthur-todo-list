@@ -1,3 +1,5 @@
+window.onload = getTasks()
+
 const addBtn = document.querySelector("#adicionar")
 
 
@@ -10,7 +12,7 @@ function saveTask() {
     }
 
     let taskList;
-    
+
     if (localStorage.hasOwnProperty("task-list")) {
         taskList = JSON.parse(localStorage.getItem("task-list"))
         taskList.push(task)
@@ -20,13 +22,36 @@ function saveTask() {
         localStorage.setItem("task-list", JSON.stringify(taskList))
     }
 }
-
-
-
 addBtn.addEventListener("click", saveTask)
 
 
 
+function getTasks(){
+    if (localStorage.hasOwnProperty("task-list")) {
+        const taskList = JSON.parse(localStorage.getItem("task-list"))
+
+        taskList.forEach(task => {
+            insertTask(task)
+        });
+    }
+}
+
+function insertTask(task){
+    const taskElement = `
+    <div class="section-task">
+    <div class="task-content">
+        <span class="task-title">${task.title}</span>
+        <span class="task-description">${task.description}</span>
+    </div>
+
+    <div class="task-details">
+        <span class="horario">${task.time}</span>
+    </div>
+</div> ` 
+
+    const taskOutput = document.querySelector("#task-list")
+    taskOutput.innerHTML += taskElement
+}
 
 
 
