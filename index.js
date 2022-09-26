@@ -21,6 +21,7 @@ function saveTask() {
         taskList = [task]
         localStorage.setItem("task-list", JSON.stringify(taskList))
     }
+    document.location.reload(true)
 }
 addBtn.addEventListener("click", saveTask)
 
